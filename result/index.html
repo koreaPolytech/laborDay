@@ -679,13 +679,6 @@
         });
       }
 
-      function setStats() {
-        document.getElementById("stat-msgs").innerHTML =
-          "85<span class='unit'>건</span>";
-        document.getElementById("stat-phrases").innerHTML =
-          phrases.length + "<span class='unit'>문구</span>";
-      }
-
       document.getElementById("redrawBtn").addEventListener("click", () => {
         phraseList = phrases.slice().sort(() => Math.random() - 0.5);
         draw();
@@ -706,7 +699,6 @@
         window.__rs = setTimeout(draw, 200);
       });
 
-      setStats();
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(draw);
       } else {
