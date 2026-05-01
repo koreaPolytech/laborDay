@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>한국폴리텍대학 교수노조 · 응원의 한마디</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Gowun+Batang:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/wordcloud@1.2.2/src/wordcloud2.min.js"></script>
+    <style>
+      :root {
+        --bg-0: #0b0b0e;
+        --bg-1: #111117;
+        --ink: #f4ede1;
+        --ink-2: #c9c1b3;
+        --muted: #837c70;
+        --line: rgba(244, 237, 225, 0.1);
+        --accent: #e63946; /* 깃발 빨강 */
+        --accent-2: #d4a437; /* 묵직한 골드 */
+        --accent-3: #f4ede1; /* 아이보리 */
+        --paper: #f4ede1;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        font-family:
+          "Pretendard Variable",
+          Pretendard,
+          -apple-system,
+          system-ui,
+          sans-serif;
+        background: var(--bg-0);
+        color: var(--ink);
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        overflow-x: hidden;
+      }
+
+      /* 미세 노이즈 + 라이트 비네트 */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        background:
+          radial-gradient(
+            1200px 600px at 80% -10%,
+            rgba(212, 164, 55, 0.08),
+            transparent 60%
+          ),
+          radial-gradient(
+            900px 500px at -10% 110%,
+            rgba(230, 57, 70, 0.1),
+            transparent 60%
+          );
+      }
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.06;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+      }
+
+      .wrap {
+        position: relative;
+        z-index: 1;
+        max-width: 1320px;
+        margin: 0 auto;
+        padding: 56px 32px 80px;
+      }
+
+      /* 상단 메타 바 */
+      .meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 18px;
+        border-bottom: 1px solid var(--line);
+        font-size: 12px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .meta .dot {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        margin-right: 8px;
+        vertical-align: middle;
+        box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.18);
+      }
+
+      /* 헤드라인 */
+      header {
+        padding: 56px 0 28px;
+      }
+      .eyebrow {
+        font-family: "Noto Serif KR", serif;
+        font-size: 14px;
+        color: var(--accent-2);
+        letter-spacing: 0.18em;
+        margin-bottom: 16px;
+      }
+      h1 {
+        font-family: "Noto Serif KR", serif;
+        font-weight: 900;
+        font-size: clamp(40px, 6.4vw, 92px);
+        line-height: 1.04;
+        letter-spacing: -0.02em;
+      }
+      h1 .accent {
+        color: var(--accent);
+      }
+      h1 .stroke {
+        -webkit-text-stroke: 1.5px var(--ink);
+        color: transparent;
+      }
+      .lede {
+        margin-top: 20px;
+        max-width: 720px;
+        color: var(--ink-2);
+        font-size: 16px;
+        line-height: 1.7;
+      }
+
+      /* 통계 라인 */
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+        margin-top: 36px;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+      .stat {
+        padding: 18px 20px;
+        border-right: 1px solid var(--line);
+      }
+      .stat:last-child {
+        border-right: none;
+      }
+      .stat .num {
+        font-family: "Noto Serif KR", serif;
+        font-weight: 900;
+        font-size: clamp(24px, 3vw, 40px);
+        color: var(--ink);
+        letter-spacing: -0.02em;
+      }
+      .stat .num .unit {
+        font-size: 0.5em;
+        color: var(--accent-2);
+        margin-left: 4px;
+        font-weight: 700;
+      }
+      .stat .lab {
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        color: var(--muted);
+        margin-top: 6px;
+        text-transform: uppercase;
+      }
+      @media (max-width: 720px) {
+        .stats {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .stat:nth-child(2) {
+          border-right: none;
+        }
+        .stat:nth-child(1),
+        .stat:nth-child(2) {
+          border-bottom: 1px solid var(--line);
+        }
+      }
+
+      /* 워드클라우드 캔버스 */
+      .canvas-section {
+        margin-top: 40px;
+        position: relative;
+        background: linear-gradient(180deg, #faf3e6 0%, #f4ede1 100%);
+        color: #1a1a1f;
+        border-radius: 4px;
+        overflow: hidden;
+        box-shadow:
+          0 1px 0 rgba(255, 255, 255, 0.04),
+          0 30px 80px rgba(0, 0, 0, 0.5);
+      }
+      .canvas-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(
+            800px 400px at 90% -10%,
+            rgba(212, 164, 55, 0.12),
+            transparent 60%
+          ),
+          radial-gradient(
+            600px 300px at -10% 110%,
+            rgba(230, 57, 70, 0.1),
+            transparent 60%
+          );
+      }
+      .canvas-head {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        padding: 22px 28px 4px;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .canvas-head h2 {
+        font-family: "Noto Serif KR", serif;
+        font-weight: 900;
+        font-size: clamp(20px, 2.2vw, 28px);
+        color: #1a1a1f;
+        letter-spacing: -0.01em;
+      }
+      .canvas-head .legend-line {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        color: #5a5447;
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .swatch {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 2px;
+        vertical-align: middle;
+        margin-right: 6px;
+      }
+
+      .cloud-wrap {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        margin: 0;
+      }
+      #cloud {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      .controls {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 16px 28px 28px;
+      }
+      button {
+        cursor: pointer;
+        padding: 10px 18px;
+        border-radius: 999px;
+        border: 1px solid rgba(26, 26, 31, 0.2);
+        background: transparent;
+        color: #1a1a1f;
+        font-family: inherit;
+        font-size: 13px;
+        letter-spacing: 0.06em;
+        transition:
+          background 0.15s ease,
+          color 0.15s ease,
+          border-color 0.15s ease;
+      }
+      button:hover {
+        background: #1a1a1f;
+        color: var(--paper);
+        border-color: #1a1a1f;
+      }
+      button.primary {
+        background: var(--accent);
+        color: #fff;
+        border-color: var(--accent);
+      }
+      button.primary:hover {
+        background: #c12d39;
+        border-color: #c12d39;
+      }
+
+      /* 상위 문구 인용 카드 */
+      .quotes {
+        margin-top: 56px;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 16px;
+      }
+      .quotes h3 {
+        grid-column: 1 / -1;
+        font-family: "Noto Serif KR", serif;
+        font-weight: 900;
+        font-size: clamp(22px, 2.4vw, 32px);
+        letter-spacing: -0.01em;
+        margin-bottom: 6px;
+      }
+      .quotes h3 .num {
+        color: var(--accent-2);
+        font-size: 0.7em;
+        margin-right: 10px;
+      }
+      .qcard {
+        grid-column: span 4;
+        padding: 26px 24px;
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0)
+        );
+        transition:
+          transform 0.25s ease,
+          border-color 0.25s ease,
+          background 0.25s ease;
+      }
+      .qcard:hover {
+        transform: translateY(-3px);
+        border-color: rgba(212, 164, 55, 0.35);
+      }
+      .qcard.big {
+        grid-column: span 8;
+      }
+      .qcard.wide {
+        grid-column: span 6;
+      }
+      .qcard .mark {
+        font-family: "Noto Serif KR", serif;
+        font-weight: 900;
+        font-size: 56px;
+        line-height: 0.6;
+        color: var(--accent);
+        display: block;
+        margin-bottom: 8px;
+      }
+      .qcard p {
+        font-family: "Gowun Batang", "Noto Serif KR", serif;
+        font-size: 18px;
+        line-height: 1.6;
+        color: var(--ink);
+      }
+      .qcard.big p {
+        font-size: 22px;
+      }
+      .qcard .meta-row {
+        margin-top: 14px;
+        padding-top: 12px;
+        border-top: 1px dashed var(--line);
+        display: flex;
+        justify-content: space-between;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        color: var(--muted);
+        text-transform: uppercase;
+      }
+      @media (max-width: 900px) {
+        .qcard,
+        .qcard.big,
+        .qcard.wide {
+          grid-column: 1 / -1;
+        }
+      }
+
+      footer {
+        margin-top: 80px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+        font-size: 12px;
+        letter-spacing: 0.16em;
+        color: var(--muted);
+        text-transform: uppercase;
+      }
+
+      /* 미세 페이드 인 */
+      header,
+      .stats,
+      .canvas-section,
+      .quotes,
+      footer {
+        animation: fadeUp 0.8s ease both;
+      }
+      .stats {
+        animation-delay: 0.05s;
+      }
+      .canvas-section {
+        animation-delay: 0.1s;
+      }
+      .quotes {
+        animation-delay: 0.15s;
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="meta">
+        <div><span class="dot"></span> 한국폴리텍대학 교수노동조합</div>
+        <div>2026 노동절 기록</div>
+      </div>
+
+      <header>
+        <div class="eyebrow">VOICES OF SOLIDARITY · 응원의 한마디</div>
+      </header>
+
+      <section class="canvas-section">
+        <div class="canvas-head">
+          <h2>한 자리에 모인 응원의 문장들</h2>
+          <div class="legend-line"></div>
+        </div>
+        <div class="cloud-wrap">
+          <canvas id="cloud"></canvas>
+        </div>
+        <div class="controls">
+          <button id="redrawBtn" class="primary">다시 배치</button>
+          <button id="rotateBtn">회전 토글</button>
+          <button id="downloadBtn">PNG 저장</button>
+        </div>
+      </section>
+
+      <section class="quotes">
+        <h3><span class="num">01</span>가장 깊이 새겨진 문장들</h3>
+        <article class="qcard big">
+          <span class="mark">“</span>
+          <p>우리는 혼자가 아니라는 사실 — 그게 바로 노조의 힘입니다.</p>
+          <div class="meta-row">
+            <span>SOLIDARITY</span><span>한 조합원</span>
+          </div>
+        </article>
+        <article class="qcard">
+          <span class="mark">“</span>
+          <p>우리는 둘이 아닌 하나가 되어야 합니다. 단결, 투쟁.</p>
+          <div class="meta-row"><span>UNITY</span><span>함께</span></div>
+        </article>
+        <article class="qcard">
+          <span class="mark">“</span>
+          <p>기술 교육의 미래, 연대의 힘으로 함께 열어갑시다.</p>
+          <div class="meta-row"><span>FUTURE</span><span>연대</span></div>
+        </article>
+        <article class="qcard wide">
+          <span class="mark">“</span>
+          <p>
+            서로를 존중하고 단결하여 우리의 권리와 더 나은 환경을 함께 만들어
+            갑시다.
+          </p>
+          <div class="meta-row">
+            <span>RESPECT · UNITY</span><span>함께</span>
+          </div>
+        </article>
+        <article class="qcard">
+          <span class="mark">“</span>
+          <p>교수가 교수다운 환경을 만들기를 바랍니다.</p>
+          <div class="meta-row">
+            <span>DIGNITY</span><span>현장의 목소리</span>
+          </div>
+        </article>
+      </section>
+
+      <footer>
+        <div>© 한국폴리텍대학 전국교수노동조합</div>
+        <div>교육홍보국·여성국 2026.05.01</div>
+      </footer>
+    </div>
+
+    <script>
+      // 조합원이 남긴 응원 메시지 — 원문 그대로
+      const rawMessages = [
+        "사랑합니다.",
+        "폴리텍대학법 제정을 위해~",
+        "하나되어 기필코 승리~~~!!",
+        "너무 좋아요~간부님들 화이팅",
+        "화이팅 노조 노조",
+        "언제나 한국폴리텍 화이팅!",
+        "대신 수고해 주심에 항상 감사합니다^^",
+        "모두가 하나다.",
+        "만세!! 만세!! 만세!!",
+        "단결!",
+        "노조 화이팅~!!! 지금 열심히 일한덕에 노동절도 생기네요 감사",
+        "항상 우리 교수들의 권리를 지키기 위해 수고가 많으십니다. 자주 참석은 못하지만 마음은 항상 응원하고 있습니다. 화이팅!!",
+        "고생들 많으십니다. 많은힘 못되어드리지만 끝까지 지지해 드리겠습니다.",
+        "수고가 많으십니다",
+        "늘고생이 많으십니다. 화이팅",
+        "우리의 권리와 미래를 지켜내기 위해 멈추지 않고 도전하는 한국폴리텍대학 전국교수노동조합의 행보에 큰뜻을 함께하며 동료 교수님들과 늘 응원합니다!",
+        "함께 행복한 삶의공간이 될수 있는 직장분위기를 만드는것이 폴텍대학이 오래 존재하는것임을 깨닫고 교수노조의 역할을 기대합니다",
+        "폴리텍대학법 제정 투쟁!!",
+        "항상 감사합니다.",
+        "열심히 노력해주셔서 감사드리며 항상 응원합니다.",
+        "언제나 애써주심에 감사합니다.",
+        "소통과 화합속에 더욱 발전하는 조합이 되었으면 합니다.",
+        "멀지만 꼭 승리하기 위해 하나가 되어봅시다.",
+        "교수가 교수다운 환경을 만들기를 바랍니다.",
+        "항상 수고해주심에 감사합니다.",
+        "노조 여러분 늘 건강하시고, 파이팅 합시다...",
+        "노동절을 맞아 힘들었던 심신을 재충전하시기 바랍니다.",
+        "감사합니다.",
+        "누군가 희생해야 누군가 행복 할 수 있습니다.",
+        "노동의 권익을 지키는 본질은 유지하되, 구성원 간의 신뢰와 균형 있는 협력도 함께 고려해 주시길 바랍니다.",
+        "현장의 목소리와 조직의 지속가능성이 함께 가는 방향으로 역할을 해주시면 좋겠습니다.",
+        "항상 행복하십시오",
+        "우리 모두 더불어 한마음으로 ~!!",
+        "단결~~~!! 투쟁!!",
+        "화이팅!!!",
+        "감사합니다 파이팅",
+        "늘 열정을 다해 주심에 감사드립니다.",
+        "늘 화이팅!",
+        "동료와 사측. 서로를 잇는 좋은관계가 될수 있도록 해주세요",
+        "항상 지지하고 응원하겠습니다 노조집행부에 감사의 마음 전합니다",
+        "기술 교육의 미래, 연대의 힘으로 함께 열어갑시다.",
+        "우리는 둘이 아닌 하나가 되어야 합니다. - 단결, 투쟁.",
+        "늘 고생이 많으십니다. 한발 앞서 고생해 주신 덕분에 저희 모두가 힘을 얻습니다. 감사합니다.",
+        "폴리텍법 제정 까지 화이팅~",
+        "고생 많으십니다.",
+        "화이팅~~!! 항상 감사합니다.",
+        "감사합니다 같이 하는 노조",
+        "보이지 않는 자리에서 서로를 지탱해 온 시간들이 오늘의 우리를 만들었습니다.",
+        "함께 쉬고, 더 깊이 연결되는 이 시간이 서로의 내일을 더 단단하게 만들 것이라 믿습니다.",
+        "한국폴리텍대학 교수노조가 '연결의 힘'으로 더 따뜻한 공동체가 되길 응원합니다.",
+        "화이팅",
+        "항상 애서주심에 감사드립니다.",
+        "노조원들의 많은 고통을 이해하여 반영해주세요",
+        "항상 고맙습니다. 힘내세요. 화이팅!",
+        "수고가 많으십니다",
+        "힘내서 서로에세 힘이 되어줍시다요~~~",
+        "조합원들 위해 얘써주셔서 감사합니다.",
+        "항상 감사합니다.",
+        "폴리텍법 제정 단결 투쟁",
+        "고생하십니다. 덕분에 많은 발전이 있었던거 같습니다 화이팅^^",
+        "즐거운 마음으로 단결하여 더 나은 폴리텍의 내일을 만듭시다.",
+        "항상 화이팅!! 합시다.",
+        "감사합니다.",
+        "우리는 혼자가 아니라는 사실 그게 바로 노조의 힘입니다 투쟁 단결",
+        "늘 감사드립니다 건강조심하세요~",
+        "항상 대신 수고해주시고 고생하십니다. 화이팅!",
+        "늘 감사드립니다.",
+        "하나되어 웃으면서 즐겁게~^^ 화이팅요 ~^^",
+        "멋지게,, 당당하게..",
+        "더욱 빛나길~",
+        "한마음으로 이루어 갑시다.",
+        "노고에 감사드립니다.",
+        "힘내세요",
+        "서로를 존중하고 단결하여 우리의 권리와 더 나은 환경을 함께 만들어 갑시다.",
+        "교권강화, 교원복지, 폴리텍대학법 제정!!!",
+        "캠퍼스 방문 감사합니다.",
+        "단결투쟁!!!",
+        "투쟁! 화이팅!",
+        "항상 발전되는 폴리텍 만들어 주셔서 감사합니다.",
+        "투쟁.!",
+        "항상 응원합니다.",
+        "함께 할 수 있어서 영광입니다^^",
+        "교권확립을 위해 노력하시는 본조 교수님들 고생 많으심에 감사드립니다.",
+        "교수를 교수답게 만드는 그날까지",
+      ];
+
+      // 길이 기반 가중치: 짧은 구호는 크게, 긴 문장은 작게.
+      // 같은 메시지가 반복되면 가중치가 누적된다.
+      function buildPhrases(messages) {
+        const counts = new Map();
+        for (const m of messages) {
+          const key = m.trim();
+          counts.set(key, (counts.get(key) || 0) + 1);
+        }
+        return [...counts.entries()].map(([text, count]) => {
+          const len = text.length;
+          let base;
+          if (len <= 5)
+            base = 36; // "단결!", "화이팅"
+          else if (len <= 10)
+            base = 24; // "감사합니다", "투쟁!"
+          else if (len <= 16)
+            base = 16; // "수고 많으십니다"
+          else if (len <= 25)
+            base = 11; // 짧은 한 문장
+          else if (len <= 40) base = 8;
+          else if (len <= 60) base = 6;
+          else if (len <= 90) base = 5;
+          else base = 4; // 긴 문단
+          return [text, base + (count - 1) * 4];
+        });
+      }
+      const phrases = buildPhrases(rawMessages);
+
+      // 색상: 깃발 빨강 / 묵직 골드 / 잉크 블랙 — 가중치별 위계
+      const colorFor = (weight) => {
+        if (weight >= 30) return "#e63946"; // 짧은 핵심 구호: 빨강
+        if (weight >= 20) return "#0e0e12"; // 강한 단일 단어: 잉크
+        if (weight >= 14) return "#1a1a1f"; // 짧은 문장: 잉크
+        if (weight >= 9) return "#a8861f"; // 중간 문장: 짙은 골드
+        if (weight >= 6) return "#5a5447"; // 긴 문장: 그레이브라운
+        return "#7a7368"; // 매우 긴 문장: 옅은 그레이
+      };
+
+      let allowRotate = false;
+      let phraseList = phrases.slice();
+
+      const canvas = document.getElementById("cloud");
+      function resizeCanvas() {
+        const wrap = canvas.parentElement;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const rect = wrap.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        canvas.style.width = rect.width + "px";
+        canvas.style.height = rect.height + "px";
+      }
+
+      function draw() {
+        resizeCanvas();
+        const minSide = Math.min(canvas.width, canvas.height);
+
+        WordCloud(canvas, {
+          list: phraseList,
+          gridSize: Math.max(6, Math.round((8 * minSide) / 1024)),
+          weightFactor: function (size) {
+            // 가중치 4(긴문단)~36(짧은구호) 범위를 픽셀로 사상.
+            // 거듭제곱 1.0 → 짧은 구호는 시원하게 크고, 긴 문장도 한줄로 들어갈 만큼 작아짐.
+            return size * (minSide / 320);
+          },
+          fontFamily:
+            "'Noto Serif KR', 'Pretendard Variable', Pretendard, serif",
+          color: function (word, weight) {
+            return colorFor(weight);
+          },
+          fontWeight: function (w, weight) {
+            if (weight >= 24) return "900";
+            if (weight >= 14) return "700";
+            return "600";
+          },
+          backgroundColor: "transparent",
+          rotateRatio: allowRotate ? 0.18 : 0,
+          rotationSteps: 2,
+          minRotation: -Math.PI / 16,
+          maxRotation: Math.PI / 16,
+          shuffle: true,
+          drawOutOfBound: false,
+          shrinkToFit: true,
+          shape: "square",
+          ellipticity: 1,
+          minSize: 11,
+          hover: function (item) {
+            canvas.style.cursor = item ? "pointer" : "default";
+          },
+        });
+      }
+
+      function setStats() {
+        document.getElementById("stat-msgs").innerHTML =
+          "85<span class='unit'>건</span>";
+        document.getElementById("stat-phrases").innerHTML =
+          phrases.length + "<span class='unit'>문구</span>";
+      }
+
+      document.getElementById("redrawBtn").addEventListener("click", () => {
+        phraseList = phrases.slice().sort(() => Math.random() - 0.5);
+        draw();
+      });
+      document.getElementById("rotateBtn").addEventListener("click", () => {
+        allowRotate = !allowRotate;
+        draw();
+      });
+      document.getElementById("downloadBtn").addEventListener("click", () => {
+        const link = document.createElement("a");
+        link.download = "polytech-union-wordcloud.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      });
+
+      window.addEventListener("resize", () => {
+        clearTimeout(window.__rs);
+        window.__rs = setTimeout(draw, 200);
+      });
+
+      setStats();
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(draw);
+      } else {
+        window.addEventListener("load", draw);
+      }
+    </script>
+  </body>
+</html>
